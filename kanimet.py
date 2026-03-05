@@ -1,1 +1,0 @@
-print("dead is world")
