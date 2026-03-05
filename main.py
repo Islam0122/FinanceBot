@@ -49,6 +49,13 @@ async def help_command(message: Message):
         caption="Я помогу вам рассчитать ваши расходы "
     )
 
+
+@dp.message(Command('help'))
+async def start_command(message: Message):
+    await message.answer_photo(
+        photo=FSInputFile("img2.png"),
+        caption=" этот бот поможет вам учитывать доходы и рассходы"
+    )
 async def main():
     await dp.start_polling(bot)
 
