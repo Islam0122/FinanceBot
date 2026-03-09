@@ -13,9 +13,20 @@ class IncomeStates(StatesGroup):
     description = State()
     confirmed = State()
 
+@router_income.message(Command("cancel"))
+async def cancel(message: Message,state: FSMContext):
+        await message.answer("❌ Отменено")
+        await state.clear()
+        return
+
 @router_income.message(F.text == 'Добавить доход')
 async def income_command1(message: Message,state: FSMContext):
     await message.answer("Введите сумму дохода:")
+    await state.set_state(IncomeStates.amount)
+
+@router_income.callback_query(F.data == "add")
+async def income_command2(message: CallbackQuery,state: FSMContext):
+    await message.message.answer("Введите сумму дохода:")
     await state.set_state(IncomeStates.amount)
 
 @router_income.message(IncomeStates.amount)
@@ -61,3 +72,4 @@ async def income_command4(message: Message,state: FSMContext):
     print(data)
     await message.answer("✅ Доход сохранён")
     await state.clear()
+
