@@ -4,6 +4,7 @@ from config import Config, load_config
 from handlers.base_commands_start import router_start
 from handlers.income_command import router_income
 from handlers.expense_command import router_expense
+from handlers.test import router_test
 from keyboards.menu import commands
 
 async def main() -> None:
@@ -15,6 +16,7 @@ async def main() -> None:
     dp.include_router(router_start)
     dp.include_router(router_income)
     dp.include_router(router_expense)
+    dp.include_router(router_test)
 
     await bot.set_my_commands(commands=commands)
     await bot.delete_webhook(drop_pending_updates=True)
