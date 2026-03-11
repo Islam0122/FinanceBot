@@ -3,10 +3,14 @@ from aiogram.filters import Command
 from aiogram.types import Message,FSInputFile,CallbackQuery
 from text.messages import START_TEXT,ABOUT_TEXT,HELP_TEXT
 from keyboards.inline_keyboard import start_keyboard,return_menu
+from db.engine import add_user,get_user_by_telegram_id
 router_start = Router()
 
 @router_start.message(Command('start'))
 async def start(message: Message):
+    user_id =  message.from_user.id
+    add_user(user_id,message.from_user.first_name)
+
     await message.answer_photo(
         photo=FSInputFile("photo/img.png"),
         caption=START_TEXT,
