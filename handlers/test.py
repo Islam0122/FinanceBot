@@ -13,10 +13,8 @@ router_test = Router()
 
 class Test(StatesGroup):
     answering = State()
-
 @router_test.message(Command("all"))
 async def test(message: Message, session: AsyncSession):
-    await update_user_stats(session,8586756357,fullname="kelsinai",score=1000000)
     a =await read_user_stats(session)
     text = ""
     for i in a:

@@ -3,10 +3,11 @@ from aiogram import Bot, Dispatcher
 from config import Config, load_config
 from db.db import DataBaseSession
 from handlers.base_commands_start import router_start
+from handlers.group_commands import user_group_router
 from handlers.income_command import router_income
 from handlers.expense_command import router_expense
 from handlers.test import router_test
-
+from handlers.admin_commands import router_admin
 from keyboards.menu import commands
 from db.engine import create_db, drop_db, session_maker
 
@@ -35,14 +36,17 @@ async def on_shutdown():
 
 async def main() -> None:
     config: Config = load_config()
-
-    bot = Bot(token=config.bot.token)
+    admins = [7228221648, ]
+    bot = Bot(token=config.bot.token,)
+    bot.my_admins_list = admins
     dp = Dispatcher()
 
     dp.include_router(router_start)
     dp.include_router(router_income)
     dp.include_router(router_expense)
     dp.include_router(router_test)
+    dp.include_router(router_admin)
+    dp.include_router(user_group_router)
 
     # Регистрируем функцию, которая выполняется при запуске бота
     # В нашем случае: создание таблиц, вывод приветствия в консоль
