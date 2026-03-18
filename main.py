@@ -6,6 +6,7 @@ from handlers.base_commands_start import router_start
 from handlers.group_commands import user_group_router
 from handlers.income_command import router_income
 from handlers.expense_command import router_expense
+from handlers.parser_command import parser_admin
 from handlers.test import router_test
 from handlers.admin_commands import router_admin
 from keyboards.menu import commands
@@ -47,6 +48,7 @@ async def main() -> None:
     dp.include_router(router_test)
     dp.include_router(router_admin)
     dp.include_router(user_group_router)
+    dp.include_router(parser_admin)
 
     # Регистрируем функцию, которая выполняется при запуске бота
     # В нашем случае: создание таблиц, вывод приветствия в консоль
